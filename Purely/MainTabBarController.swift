@@ -7,49 +7,35 @@
 
 
 // Таббар
-import UIKit
 
-class MainTabBarController: UITabBarController {
+import SwiftUI
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+struct MainTabView: View {
+    @Environment(\.dismiss) var dismiss
 
-        let historyVC = HistoryViewController()
-        let scanVC    = ScanViewController()
+    var body: some View {
+        TabView {
+            NavigationStack {
+                HistoryView()
+                    .navigationTitle("История")
+            }
+            .tag(0)
+            .tabItem {
+                Label("История", systemImage: "clock")
+            }
 
-        historyVC.tabBarItem = UITabBarItem(
-            title: "История",
-            image: UIImage(systemName: "clock"),
-            selectedImage: UIImage(systemName: "clock.fill")
-        )
-
-        scanVC.tabBarItem = UITabBarItem(
-            title: "Сканировать",
-            image: UIImage(systemName: "camera"),
-            selectedImage: UIImage(systemName: "camera.fill")
-        )
-
-        viewControllers = [
-            UINavigationController(rootViewController: historyVC),
-            UINavigationController(rootViewController: scanVC)
-        ]
-
-        setupTabBarAppearance()
+            NavigationStack {
+                ScanView()
+                    .navigationTitle("Сканирование")
+            }
+            .tag(1)
+            .tabItem {
+                Label("Сканировать", systemImage: "camera")
+            }
+        }
     }
+}
 
-    private func setupTabBarAppearance() {
-        let appearance = UITabBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .clear
-        appearance.shadowColor = .clear
-
-        tabBar.standardAppearance = appearance
-        tabBar.scrollEdgeAppearance = tabBar.standardAppearance
-
-        tabBar.tintColor = UIColor.black
-        tabBar.unselectedItemTintColor = UIColor(white: 1.0, alpha: 0.6)
-
-        tabBar.isTranslucent = true
-        tabBar.backgroundColor = .clear
-    }
+#Preview {
+    MainTabView()
 }

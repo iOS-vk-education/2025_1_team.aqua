@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -20,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: scene)
         
-        window.rootViewController = MainTabBarController()
+        window.rootViewController = UIHostingController(rootView: MainTabView())
         self.window = window
         window.makeKeyAndVisible()
     }
