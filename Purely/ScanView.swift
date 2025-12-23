@@ -28,7 +28,9 @@ final class PreviewView: UIView {
 }
 
 struct ScanView: View {
+    @EnvironmentObject var store: ProductStore
     @StateObject private var camera = CameraService()
+    @State private var selectedProduct: Product?
 
     var body: some View {
         ZStack {
@@ -66,8 +68,26 @@ struct ScanView: View {
                 .padding(.bottom, 24)
             }
         }
+        .overlay(alignment: .center) {
+            if camera.isLoading {
+                Color(hex: "B55BE0").opacity(0.35).ignoresSafeArea()
+                ProgressView("Идёт анализ...")
+                    .font(.headline)
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 16)
+                    .glassEffect()
+            }
+        }
         .onAppear { camera.configureAndStart() }
         .onDisappear { camera.stop() }
+        .onChange(of: camera.product) { _, newValue in
+            guard let product = newValue else { return }
+            store.addProduct(product)
+            selectedProduct = product
+        }
+        .navigationDestination(item: $selectedProduct) { product in
+            ProductDetailView(product: product)
+        }
     }
 }
 

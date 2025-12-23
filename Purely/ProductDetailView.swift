@@ -48,7 +48,7 @@ struct ProductDetailView: View {
                     Text("Полный состав (INCI)")
                         .font(.headline)
 
-                    Text(product.fullINCI)
+                    Text(product.full_composition)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .padding(12)
@@ -61,7 +61,8 @@ struct ProductDetailView: View {
             .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
-        .background(Color(hex: "B55BE0").opacity(0.08).ignoresSafeArea())
+        .scrollContentBackground(.hidden)
+        .background(Color(hex: "B55BE0").opacity(0.12).ignoresSafeArea())
     }
 
     private func scoreColor(_ score: Int) -> Color {

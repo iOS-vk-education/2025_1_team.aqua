@@ -12,11 +12,13 @@ import SwiftUI
 
 struct MainTabView: View {
     @Environment(\.dismiss) var dismiss
+    @StateObject private var store = ProductStore()
 
     var body: some View {
         TabView {
             NavigationStack {
                 HistoryView()
+                    .environmentObject(store)
                     .navigationTitle("История")
             }
             .tag(0)
@@ -26,6 +28,7 @@ struct MainTabView: View {
 
             NavigationStack {
                 ScanView()
+                    .environmentObject(store)
                     .navigationTitle("Сканирование")
             }
             .tag(1)

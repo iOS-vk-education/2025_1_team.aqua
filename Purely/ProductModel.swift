@@ -7,27 +7,102 @@
 
 
 import SwiftUI
+import Combine
 
-struct Product: Identifiable, Hashable {
+struct Product: Identifiable, Codable, Hashable {
     let id = UUID()
     let name: String
     let score: Int
     let ingredients: [Ingredient]
-    let fullINCI: String
+    let full_composition: String
+    
+    enum CodingKeys: String, CodingKey {
+        case name = "product_name"
+        case score
+        case ingredients
+        case full_composition
+    }
+    
+    init(name: String, score: Int, ingredients: [Ingredient], full_composition: String) {
+        self.name = name
+        self.score = score
+        self.ingredients = ingredients
+        self.full_composition = full_composition
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        name = try container.decode(String.self, forKey: .name)
+        if let intScore = try? container.decode(Int.self, forKey: .score) {
+            score = intScore
+        } else {
+            let scoreString = try container.decode(String.self, forKey: .score)
+            score = Int(scoreString) ?? 0
+        }
+        
+        ingredients = try container.decode([Ingredient].self, forKey: .ingredients)
+        full_composition = try container.decode(String.self, forKey: .full_composition)
+    }
 }
 
-struct Ingredient: Identifiable, Hashable {
+struct Ingredient: Identifiable, Hashable, Codable {
     let id = UUID()
     let name: String
     let role: String
     let impact: String
     let riskLevel: RiskLevel
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case role = "function"
+        case impact = "description"
+        case riskLevel = "danger_level"
+    }
+    
+    init(name: String, role: String, impact: String, riskLevel: RiskLevel) {
+        self.name = name
+        self.role = role
+        self.impact = impact
+        self.riskLevel = riskLevel
+    }
 }
 
-enum RiskLevel: String, CaseIterable, Hashable {
+final class ProductStore: ObservableObject {
+    @Published var products: [Product]
+    
+    init(products: [Product] = Product.products) {
+        self.products = products
+    }
+    
+    func addProduct(_ product: Product) {
+        products.append(product)
+    }
+}
+
+enum RiskLevel: String, CaseIterable, Hashable, Codable {
     case low = "Низкий"
     case medium = "Средний"
     case high = "Высокий"
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let raw = (try? container.decode(String.self))?.lowercased() ?? ""
+        
+        switch raw {
+        case "low", "низкий":
+            self = .low
+        case "high", "высокий":
+            self = .high
+        default:
+            self = .medium
+        }
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(rawValue)
+    }
 
     var color: Color {
         switch self {
@@ -63,6 +138,8 @@ extension Color {
 
 
 extension Product {
+    static var products: [Product] = [mock] // Массив для хранения продуктов
+    
     static let mock = Product(
         name: "Шампунь",
         score: 87,
@@ -80,6 +157,10 @@ extension Product {
                 riskLevel: .low
             )
         ],
-        fullINCI: "Aqua, Sodium Laureth Sulfate, Cocamidopropyl Betaine, Panthenol..."
+        full_composition: "Aqua, Sodium Laureth Sulfate, Cocamidopropyl Betaine, Panthenol..."
     )
+    
+    static func addProduct(_ product: Product) {
+        products.append(product)
+    }
 }
