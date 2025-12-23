@@ -1,13 +1,13 @@
 import Vapor
 
-// Структуры для запроса к BotHub API
+// Структуры для запроса
 struct BotHubRequest: Content {
     let model: String
     let input: String
     let max_output_tokens: Int
 }
 
-// Функция для отправки запроса в BotHub API и получения ответа
+// Функция для отправки запроса и  ответа
 func analyzeText(text: String, app: Application) -> EventLoopFuture<String> {
     let apiKey = "api-key"  // API КЛЮЧ
     let url = "https://bothub.chat/api/v2/openai/v1/responses"
@@ -36,7 +36,7 @@ func analyzeText(text: String, app: Application) -> EventLoopFuture<String> {
         }
 }
 
-// Эндпоинт для анализа
+// Эндпоинт
 func routes(_ app: Application) throws {
     // Эндпоинт для проверки работоспособности
     app.get("testt") { req -> String in
@@ -67,7 +67,7 @@ func routes(_ app: Application) throws {
 
 // Структура для входящего запроса
 struct AnalyzeRequest: Content {
-    let text: String  // Ожидаем поле 'text' с ингредиентами для анализа
+    let text: String  
 }
 
 // Функция для создания запроса на основе текста
