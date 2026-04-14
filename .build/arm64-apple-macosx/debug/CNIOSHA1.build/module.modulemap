@@ -1,0 +1,4 @@
+module CNIOSHA1 {
+    umbrella header "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-nio/Sources/CNIOSHA1/include/CNIOSHA1.h"
+    export *
+}

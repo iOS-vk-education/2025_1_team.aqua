@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOCertificateHelpers.build/master.swiftdeps"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-nio-extras/Sources/NIOCertificateHelpers/CertificateValidation.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOCertificateHelpers.build/CertificateValidation.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOCertificateHelpers.build/CertificateValidation.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOCertificateHelpers.build/CertificateValidation~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOCertificateHelpers.build/CertificateValidation.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOCertificateHelpers.build/CertificateValidation.dia"
+  }
+}

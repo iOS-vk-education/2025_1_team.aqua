@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Metrics.build/master.swiftdeps"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-metrics/Sources/Metrics/Metrics.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Metrics.build/Metrics.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Metrics.build/Metrics.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Metrics.build/Metrics~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Metrics.build/Metrics.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Metrics.build/Metrics.dia"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/InstrumentationBaggage.build/master.swiftdeps"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-service-context/Sources/InstrumentationBaggage/CompatibilityShims.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/InstrumentationBaggage.build/CompatibilityShims.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/InstrumentationBaggage.build/CompatibilityShims.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/InstrumentationBaggage.build/CompatibilityShims~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/InstrumentationBaggage.build/CompatibilityShims.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/InstrumentationBaggage.build/CompatibilityShims.dia"
+  }
+}

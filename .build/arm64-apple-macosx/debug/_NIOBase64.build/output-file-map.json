@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/_NIOBase64.build/master.swiftdeps"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-nio/Sources/_NIOBase64/Base64.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/_NIOBase64.build/Base64.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/_NIOBase64.build/Base64.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/_NIOBase64.build/Base64~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/_NIOBase64.build/Base64.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/_NIOBase64.build/Base64.dia"
+  }
+}

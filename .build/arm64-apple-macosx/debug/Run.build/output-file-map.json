@@ -1,0 +1,26 @@
+{
+  "": {
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/master.swiftdeps"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/LLMAPI/configure.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/configure.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/configure.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/configure~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/configure.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/configure.dia"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/LLMAPI/entrypoint.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/entrypoint.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/entrypoint.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/entrypoint~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/entrypoint.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/entrypoint.dia"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/LLMAPI/routes.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/routes.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/routes.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/routes~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/routes.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/Run.build/routes.dia"
+  }
+}

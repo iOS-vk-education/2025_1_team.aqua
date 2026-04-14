@@ -1,0 +1,19 @@
+{
+  "": {
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ConcurrencyHelpers.build/master.swiftdeps"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-service-lifecycle/Sources/ConcurrencyHelpers/Lock.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ConcurrencyHelpers.build/Lock.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ConcurrencyHelpers.build/Lock.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ConcurrencyHelpers.build/Lock~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ConcurrencyHelpers.build/Lock.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ConcurrencyHelpers.build/Lock.dia"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-service-lifecycle/Sources/ConcurrencyHelpers/LockedValueBox.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ConcurrencyHelpers.build/LockedValueBox.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ConcurrencyHelpers.build/LockedValueBox.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ConcurrencyHelpers.build/LockedValueBox~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ConcurrencyHelpers.build/LockedValueBox.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ConcurrencyHelpers.build/LockedValueBox.dia"
+  }
+}

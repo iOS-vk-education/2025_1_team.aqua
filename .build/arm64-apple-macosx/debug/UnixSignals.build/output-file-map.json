@@ -1,0 +1,19 @@
+{
+  "": {
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/UnixSignals.build/master.swiftdeps"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-service-lifecycle/Sources/UnixSignals/UnixSignal.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/UnixSignals.build/UnixSignal.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/UnixSignals.build/UnixSignal.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/UnixSignals.build/UnixSignal~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/UnixSignals.build/UnixSignal.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/UnixSignals.build/UnixSignal.dia"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-service-lifecycle/Sources/UnixSignals/UnixSignalsSequence.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/UnixSignals.build/UnixSignalsSequence.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/UnixSignals.build/UnixSignalsSequence.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/UnixSignals.build/UnixSignalsSequence~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/UnixSignals.build/UnixSignalsSequence.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/UnixSignals.build/UnixSignalsSequence.dia"
+  }
+}

@@ -1,3 +1,5 @@
+///  CameraService.swift
+
 import AVFoundation
 import Vision
 import UIKit
@@ -9,28 +11,38 @@ final class CameraService: NSObject, ObservableObject {
     @Published var product: Product?
     let session = AVCaptureSession()
 
+    /// Вызывать только с главного потока (после сетевого ответа мы уже на main).
     func parseAPIResponse(responseString: String) {
-        guard let range = responseString.range(of: "```json\n") else { return }
+        func fail() {
+            self.isLoading = false
+        }
+
+        guard let range = responseString.range(of: "```json\n") else {
+            fail()
+            return
+        }
         let jsonText = responseString[range.upperBound...]
-        
-        guard let endRange = jsonText.range(of: "```") else { return }
+
+        guard let endRange = jsonText.range(of: "```") else {
+            fail()
+            return
+        }
         let cleanJson = jsonText[..<endRange.lowerBound]
-        
-        guard let data = cleanJson.data(using: .utf8) else { return }
-        
+
+        guard let data = cleanJson.data(using: .utf8) else {
+            fail()
+            return
+        }
+
         let decoder = JSONDecoder()
 
         do {
             let decodedProduct = try decoder.decode(Product.self, from: data)
-            DispatchQueue.main.async {
-                self.product = decodedProduct
-                self.isLoading = false
-            }
+            self.product = decodedProduct
+            self.isLoading = false
         } catch {
             print("Error parsing response: \(error)")
-            DispatchQueue.main.async {
-                self.isLoading = false
-            }
+            fail()
         }
     }
 
@@ -138,9 +150,8 @@ extension CameraService: AVCapturePhotoCaptureDelegate {
     }
 
     func sendRecognizedTextToAPI(text: String) {
-        guard let url = URL(string: "http://192.168.1.9:8080/analyze") else { return }
+        guard let url = URL(string: "http://194.32.243.136:8080/analyze") else { return }
 
-        // Создаем тело запроса в формате JSON
         let parameters: [String: Any] = ["text": text]
         let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
 
@@ -149,41 +160,51 @@ extension CameraService: AVCapturePhotoCaptureDelegate {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
 
-        self.isLoading = true  // Начало загрузки
+        DispatchQueue.main.async {
+            self.isLoading = true
+        }
 
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            // Обработка ошибок при запросе
-            if let error = error {
-                print("Ошибка при отправке запроса: \(error)")
-                self.isLoading = false
-                return
-            }
-
-            // Проверка наличия данных в ответе
-            guard let data = data else {
-                print("Нет данных в ответе")
-                self.isLoading = false
-                return
-            }
-
-            // Попытка обработки ответа как JSON
-            do {
-                if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                    // Проверяем наличие ключа "output_text" в ответе
-                    if let outputText = jsonResponse["output_text"] as? String {
-                        // Парсим данные и создаем модель
-                        self.parseAPIResponse(responseString: outputText)
-                    } else {
-                        print("Поле 'output_text' отсутствует в ответе")
-                    }
-                } else {
-                    print("Ответ не является корректным JSON")
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("Ошибка при отправке запроса: \(error)")
+                    self.isLoading = false
+                    return
                 }
-            } catch {
-                print("Ошибка при обработке данных: \(error)")
+
+                guard let data = data else {
+                    print("Нет данных в ответе")
+                    self.isLoading = false
+                    return
+                }
+
+                do {
+                    if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                        if let outputText = jsonResponse["output_text"] as? String {
+                            self.parseAPIResponse(responseString: outputText)
+                        } else {
+                            print("Поле 'output_text' отсутствует в ответе")
+                            self.isLoading = false
+                        }
+                    } else {
+                        print("Ответ не является корректным JSON")
+                        self.isLoading = false
+                    }
+                } catch {
+                    print("Ошибка при обработке данных: \(error)")
+                    self.isLoading = false
+                }
             }
         }
         task.resume()
+    }
+    
+    func recognizeTextFromGallery(_ cgImage: CGImage) {
+        DispatchQueue.main.async {
+            self.isLoading = true
+        }
+        recognizeText(in: cgImage)
     }
 
     private func recognizeText(in cgImage: CGImage) {

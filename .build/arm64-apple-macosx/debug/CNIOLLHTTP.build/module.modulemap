@@ -1,0 +1,4 @@
+module CNIOLLHTTP {
+    umbrella header "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-nio/Sources/CNIOLLHTTP/include/CNIOLLHTTP.h"
+    export *
+}

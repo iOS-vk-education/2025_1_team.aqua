@@ -1,0 +1,4 @@
+module _CWASI {
+    umbrella header "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-distributed-tracing/Sources/_CWASI/include/_CWASI.h"
+    export *
+}

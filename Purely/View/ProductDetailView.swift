@@ -6,54 +6,106 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ProductDetailView: View {
     let product: Product
+    @State private var didCopyComposition = false
+    @State private var shareImagePayload: ShareImagePayload?
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 20) {
+                // Header карточка
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(product.name)
+                        .font(.title2.bold())
+                        .multilineTextAlignment(.leading)
 
-                Text(product.name)
-                    .font(.title.bold())
+                    HStack(spacing: 12) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Общий рейтинг")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
 
-                // Рейтинг
-                HStack(spacing: 12) {
-                    Text("Рейтинг")
-                        .font(.headline)
+                            Text(product.ratingSummary)
+                                .font(.headline)
+                                .foregroundStyle(scoreColor(product.score))
+                        }
 
-                    Spacer()
+                        Spacer()
 
-                    Text("\(product.score)")
-                        .font(.headline)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(scoreColor(product.score).opacity(0.15))
-                        .foregroundStyle(scoreColor(product.score))
-                        .clipShape(Capsule())
+                        Text("\(product.score)")
+                            .font(.title3.weight(.bold))
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 10)
+                            .background(scoreColor(product.score).opacity(0.15))
+                            .foregroundStyle(scoreColor(product.score))
+                            .clipShape(Capsule())
+                    }
                 }
+                .padding(16)
+                .background(.ultraThinMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
 
                 // Основные компоненты
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: 12) {
                     Text("Основные компоненты")
                         .font(.headline)
 
-                    ForEach(product.ingredients) { ing in
-                        IngredientCard(ingredient: ing)
+                    VStack(spacing: 10) {
+                        ForEach(product.ingredients) { ing in
+                            IngredientCard(ingredient: ing)
+                        }
                     }
                 }
 
                 // Полный состав
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Полный состав (INCI)")
-                        .font(.headline)
+                    HStack {
+                        Text("Полный состав (INCI)")
+                            .font(.headline)
+
+                        Spacer()
+
+                        Button {
+                            UIPasteboard.general.string = product.full_composition
+                            withAnimation {
+                                didCopyComposition = true
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                withAnimation {
+                                    didCopyComposition = false
+                                }
+                            }
+                        } label: {
+                            HStack(spacing: 6) {
+                                Image(systemName: "doc.on.doc")
+                                Text("Копировать")
+                            }
+                            .font(.caption.weight(.semibold))
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 6)
+                            .background(Color.white.opacity(0.15))
+                            .clipShape(Capsule())
+                        }
+                        .buttonStyle(.plain)
+                    }
 
                     Text(product.full_composition)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .padding(12)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .background(.ultraThinMaterial)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+
+                    if didCopyComposition {
+                        Text("Состав скопирован")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .transition(.opacity.combined(with: .move(edge: .top)))
+                    }
                 }
 
                 Spacer(minLength: 24)
@@ -61,8 +113,22 @@ struct ProductDetailView: View {
             .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    if let image = ProductShareImageGenerator.makeImage(for: product) {
+                        shareImagePayload = ShareImagePayload(image: image)
+                    }
+                } label: {
+                    Image(systemName: "square.and.arrow.up")
+                }
+            }
+        }
+        .sheet(item: $shareImagePayload) { payload in
+            ShareActivityView(activityItems: [payload.image])
+        }
         .scrollContentBackground(.hidden)
-        .background(Color(hex: "B55BE0").opacity(0.12).ignoresSafeArea())
+        .background { AppScreenBackground() }
     }
 
     private func scoreColor(_ score: Int) -> Color {

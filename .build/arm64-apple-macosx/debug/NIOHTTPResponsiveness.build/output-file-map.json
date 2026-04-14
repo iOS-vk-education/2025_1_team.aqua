@@ -1,0 +1,33 @@
+{
+  "": {
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/master.swiftdeps"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-nio-extras/Sources/NIOHTTPResponsiveness/HTTPDrippingDownloadHandler.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/HTTPDrippingDownloadHandler.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/HTTPDrippingDownloadHandler.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/HTTPDrippingDownloadHandler~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/HTTPDrippingDownloadHandler.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/HTTPDrippingDownloadHandler.dia"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-nio-extras/Sources/NIOHTTPResponsiveness/HTTPReceiveDiscardHandler.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/HTTPReceiveDiscardHandler.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/HTTPReceiveDiscardHandler.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/HTTPReceiveDiscardHandler~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/HTTPReceiveDiscardHandler.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/HTTPReceiveDiscardHandler.dia"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-nio-extras/Sources/NIOHTTPResponsiveness/ResponsivenessConfig.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/ResponsivenessConfig.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/ResponsivenessConfig.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/ResponsivenessConfig~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/ResponsivenessConfig.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/ResponsivenessConfig.dia"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-nio-extras/Sources/NIOHTTPResponsiveness/SimpleResponsivenessRequestMux.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/SimpleResponsivenessRequestMux.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/SimpleResponsivenessRequestMux.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/SimpleResponsivenessRequestMux~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/SimpleResponsivenessRequestMux.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/NIOHTTPResponsiveness.build/SimpleResponsivenessRequestMux.dia"
+  }
+}

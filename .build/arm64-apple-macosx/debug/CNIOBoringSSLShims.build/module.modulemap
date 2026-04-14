@@ -1,0 +1,4 @@
+module CNIOBoringSSLShims {
+    umbrella header "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-nio-ssl/Sources/CNIOBoringSSLShims/include/CNIOBoringSSLShims.h"
+    export *
+}

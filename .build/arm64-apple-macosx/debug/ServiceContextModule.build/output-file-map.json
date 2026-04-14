@@ -1,0 +1,19 @@
+{
+  "": {
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ServiceContextModule.build/master.swiftdeps"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-service-context/Sources/ServiceContextModule/ServiceContext.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ServiceContextModule.build/ServiceContext.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ServiceContextModule.build/ServiceContext.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ServiceContextModule.build/ServiceContext~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ServiceContextModule.build/ServiceContext.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ServiceContextModule.build/ServiceContext.dia"
+  },
+  "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-service-context/Sources/ServiceContextModule/ServiceContextKey.swift": {
+    "dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ServiceContextModule.build/ServiceContextKey.d",
+    "object": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ServiceContextModule.build/ServiceContextKey.swift.o",
+    "swiftmodule": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ServiceContextModule.build/ServiceContextKey~partial.swiftmodule",
+    "swift-dependencies": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ServiceContextModule.build/ServiceContextKey.swiftdeps",
+    "diagnostics": "/Users/dmitriieselidze/2025_1_team.aqua/.build/arm64-apple-macosx/debug/ServiceContextModule.build/ServiceContextKey.dia"
+  }
+}

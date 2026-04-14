@@ -1,3 +1,4 @@
+import Foundation
 import Vapor
 
 // Структуры для запроса
@@ -7,9 +8,9 @@ struct BotHubRequest: Content {
     let max_output_tokens: Int
 }
 
-// Функция для отправки запроса и  ответа
+// Функция для отправки запроса и ответа
 func analyzeText(text: String, app: Application) -> EventLoopFuture<String> {
-    let apiKey = "api-key"  // API КЛЮЧ
+    let apiKey = Environment.get("BOTHUB_API_KEY") ?? "api-key"
     let url = "https://bothub.chat/api/v2/openai/v1/responses"
     
     var headers = HTTPHeaders()
@@ -27,37 +28,35 @@ func analyzeText(text: String, app: Application) -> EventLoopFuture<String> {
                 throw Abort(.internalServerError, reason: "Error calling  API")
             }
             
-            //  тело ответа
             let rawResponse = String(buffer: response.body ?? ByteBuffer())
-            
-            app.logger.info("Raw Response body: \(rawResponse)")  // Логируем raw ответ  API
-
+            app.logger.info("Raw Response body: \(rawResponse)")
             return rawResponse
         }
 }
 
 // Эндпоинт
 func routes(_ app: Application) throws {
-    // Эндпоинт для проверки работоспособности
     app.get("testt") { req -> String in
         return "Ok"
     }
     
-    // Эндпоинт для анализа
-    app.post("analyze") { req -> EventLoopFuture<String> in
-        // Логируем запрос
+    app.post("analyze") { req -> EventLoopFuture<AnalyzeResponse> in
         app.logger.info("Received request: \(req.body)")
 
         do {
-            // Декодируем входящий запрос
             let analyzeRequest = try req.content.decode(AnalyzeRequest.self)
-            app.logger.info("Decoded request: \(analyzeRequest)")  // Логируем декодированный запрос
-            
-            // Создаём запрос для AI
+            app.logger.info("Decoded request: \(analyzeRequest)")
             let promptText = createPrompt(for: analyzeRequest.text)
-            
-            // Отправляем запрос в BotHub API и обрабатываем ответ
+
             return analyzeText(text: promptText, app: app)
+                .map { raw in
+                    if let data = raw.data(using: .utf8),
+                       let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                       let outputText = json["output_text"] as? String {
+                        return AnalyzeResponse(output_text: outputText)
+                    }
+                    return AnalyzeResponse(output_text: raw)
+                }
         } catch {
             app.logger.error("Error decoding request: \(error)")
             throw Abort(.badRequest, reason: "Invalid request format")
@@ -65,15 +64,17 @@ func routes(_ app: Application) throws {
     }
 }
 
-// Структура для входящего запроса
 struct AnalyzeRequest: Content {
-    let text: String  
+    let text: String
 }
 
-// Функция для создания запроса на основе текста
+struct AnalyzeResponse: Content {
+    let output_text: String
+}
+
 func createPrompt(for text: String) -> String {
     let prompt = """
-    The AI should act as an expert in cosmetic ingredients, their impact on skin and human health. It should assume the role of a cosmetologist, toxicologist, nutritionist, and medical expert. The AI should analyze each ingredient in the list, its role, potential benefits, and any safety concerns.
+    The AI should act as an expert in cosmetic ingredients, their impact on skin and human health. It should assume the role of a cosmetologist, toxicologist, nutritionist, and medical expert. The AI should analyze each ingredient in the provided list, its role, potential benefits, and any safety concerns.
 
     Steps:
     1. Identify each ingredient from the provided list.
@@ -84,7 +85,7 @@ func createPrompt(for text: String) -> String {
 
     Sources:
     - Cosmetic Ingredient Review (CIR)
-    - EWG’s Skin Deep
+    - EWG's Skin Deep
     - INCI Decoder
     - FDA and ECHA regulations on cosmetic ingredients
     - Scientific research and publications

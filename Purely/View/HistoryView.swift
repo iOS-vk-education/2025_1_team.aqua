@@ -9,22 +9,35 @@ import SwiftUI
 
 struct HistoryView: View {
     @EnvironmentObject var store: ProductStore
+    @State private var selectedProduct: Product?
 
     var body: some View {
         ZStack {
-            Color(hex: "B55BE0").opacity(0.15).ignoresSafeArea()
-            VStack(spacing: 22) {
+            AppScreenBackground()
+            List {
                 ForEach(store.products) { product in
-                    NavigationLink(value: product) {
+                    Button {
+                        selectedProduct = product
+                    } label: {
                         GlassButton(title: product.name, score: product.score)
                     }
                     .buttonStyle(LiquidPressStyle())
+                    .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                    .listRowSeparator(.hidden)
+//                    .listRowSeparatorTint(Color.white.opacity(0.3))
+                    .listRowBackground(Color.clear)
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button(role: .destructive) {
+                            store.removeProduct(product)
+                        } label: {
+                            Label("Удалить", systemImage: "trash")
+                        }
+                    }
                 }
-                
-                Spacer()
             }
-            .padding()
-            .navigationDestination(for: Product.self) { product in
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .navigationDestination(item: $selectedProduct) { product in
                 ProductDetailView(product: product)
             }
         }
@@ -34,6 +47,7 @@ struct HistoryView: View {
 #Preview {
     NavigationStack {
         HistoryView()
+            .environmentObject(ProductStore())
             .navigationTitle("История")
     }
 }

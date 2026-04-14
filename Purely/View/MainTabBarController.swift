@@ -5,36 +5,51 @@
 //  Created by Dmitrii Eselidze on 21.11.2025.
 //
 
-
-// Таббар
-
 import SwiftUI
+import UIKit
 
 struct MainTabView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var store = ProductStore()
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
 
     var body: some View {
-        TabView {
-            NavigationStack {
-                HistoryView()
-                    .environmentObject(store)
-                    .navigationTitle("История")
-            }
-            .tag(0)
-            .tabItem {
-                Label("История", systemImage: "clock")
+        ZStack {
+            AppScreenBackground()
+
+            TabView {
+                NavigationStack {
+                    HistoryView()
+                        .environmentObject(store)
+                        .navigationTitle("История")
+                        .foregroundStyle(Color(hex: "FFED86"))
+                }
+                .tag(0)
+                .tabItem {
+                    Label("История", systemImage: "clock")
+                }
+
+                NavigationStack {
+                    ScanView()
+                        .environmentObject(store)
+                        .navigationTitle("Сканирование")
+                }
+                .tag(1)
+                .tabItem {
+                    Label("Сканировать", systemImage: "camera")
+                }
             }
 
-            NavigationStack {
-                ScanView()
-                    .environmentObject(store)
-                    .navigationTitle("Сканирование")
+            if !hasCompletedOnboarding {
+                OnboardingStoriesView {
+                    hasCompletedOnboarding = true
+                }
+                .transition(.opacity)
+                .zIndex(1)
             }
-            .tag(1)
-            .tabItem {
-                Label("Сканировать", systemImage: "camera")
-            }
+        }
+        .onAppear {
+            hasCompletedOnboarding = false
         }
     }
 }

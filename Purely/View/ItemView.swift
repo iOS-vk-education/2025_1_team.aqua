@@ -21,19 +21,33 @@ struct GlassButton: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            Text(title)
-                .font(.headline)
-                .foregroundStyle(.primary)
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.headline)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                    .foregroundStyle(Color(hex: "FFED86"))
+                
+                Text("Косметический продукт")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
 
             Spacer()
 
-            Text("\(score)")
-                .font(.headline.weight(.semibold))
-                .padding(.horizontal, 10)
-                .padding(.vertical, 12)
-                .background(scoreColor.opacity(0.15))
-                .foregroundStyle(scoreColor)
-                .clipShape(Capsule())
+            HStack(spacing: 6) {
+                Text("\(score)")
+                    .font(.headline.weight(.semibold))
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 8)
+                    .background(scoreColor.opacity(0.15))
+                    .foregroundStyle(scoreColor)
+                    .clipShape(Capsule())
+                
+                Image(systemName: "chevron.right")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.secondary)
+            }
         }
         .padding(.vertical, 14)
         .padding(.horizontal, 16)
@@ -49,7 +63,7 @@ struct GlassButton: View {
 
 #Preview {
     ZStack {
-        Color(hex: "B55BE0").opacity(0.15).ignoresSafeArea()
+        AppScreenBackground()
         GlassButton(title: "Шампунь", score: 87)
             .padding()
     }

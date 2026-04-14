@@ -1,5 +1,17 @@
 import SwiftUI
 
+/// Фон приложения — тот же градиент, что в онбординге (сторис).
+struct AppScreenBackground: View {
+    var body: some View {
+        LinearGradient(
+            colors: [Color(hex: "B55BE0"), Color(hex: "6C4AB6")],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+        .ignoresSafeArea()
+    }
+}
+
 private struct GlassEffect: ViewModifier {
     func body(content: Content) -> some View {
         content

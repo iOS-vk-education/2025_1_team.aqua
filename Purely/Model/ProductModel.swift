@@ -78,6 +78,10 @@ final class ProductStore: ObservableObject {
     func addProduct(_ product: Product) {
         products.append(product)
     }
+
+    func removeProduct(_ product: Product) {
+        products.removeAll { $0.id == product.id }
+    }
 }
 
 enum RiskLevel: String, CaseIterable, Hashable, Codable {
@@ -138,10 +142,11 @@ extension Color {
 
 
 extension Product {
-    static var products: [Product] = [mock] // Массив для хранения продуктов
+    static var products: [Product] = [shampoo, serum, handCream] // Примеры для раздела "История"
+    static let mock = shampoo
     
-    static let mock = Product(
-        name: "Шампунь",
+    static let shampoo = Product(
+        name: "Шампунь для чувствительной кожи головы",
         score: 87,
         ingredients: [
             Ingredient(
@@ -157,10 +162,60 @@ extension Product {
                 riskLevel: .low
             )
         ],
-        full_composition: "Aqua, Sodium Laureth Sulfate, Cocamidopropyl Betaine, Panthenol..."
+        full_composition: "Aqua, Sodium Laureth Sulfate, Cocamidopropyl Betaine, Panthenol, Parfum..."
+    )
+    
+    static let serum = Product(
+        name: "Сыворотка с ниацинамидом 10%",
+        score: 92,
+        ingredients: [
+            Ingredient(
+                name: "Niacinamide",
+                role: "Антиоксидант / выравнивание тона",
+                impact: "Улучшает барьер кожи, уменьшает воспаления и пигментацию.",
+                riskLevel: .low
+            ),
+            Ingredient(
+                name: "Hyaluronic Acid",
+                role: "Увлажнение",
+                impact: "Притягивает и удерживает влагу в роговом слое кожи.",
+                riskLevel: .low
+            )
+        ],
+        full_composition: "Aqua, Niacinamide, Glycerin, Sodium Hyaluronate, Panthenol, Phenoxyethanol..."
+    )
+    
+    static let handCream = Product(
+        name: "Крем для рук с маслом ши",
+        score: 74,
+        ingredients: [
+            Ingredient(
+                name: "Shea Butter",
+                role: "Смягчение / питание",
+                impact: "Смягчает кожу и уменьшает ощущение сухости и стянутости.",
+                riskLevel: .low
+            ),
+            Ingredient(
+                name: "Paraffinum Liquidum",
+                role: "Окклюзив",
+                impact: "Создаёт плёнку на поверхности кожи и уменьшает трансэпидермальную потерю влаги.",
+                riskLevel: .medium
+            )
+        ],
+        full_composition: "Aqua, Butyrospermum Parkii Butter, Paraffinum Liquidum, Glycerin, Cetearyl Alcohol, Parfum..."
     )
     
     static func addProduct(_ product: Product) {
         products.append(product)
     }
+
+    /// Краткая характеристика рейтинга.
+    var ratingSummary: String {
+        switch score {
+        case 0...40:   return "Сомнительный состав"
+        case 41...75:  return "Неплохой состав"
+        default:       return "Хороший состав"
+        }
+    }
+
 }

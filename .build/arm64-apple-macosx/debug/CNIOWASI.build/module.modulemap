@@ -1,0 +1,4 @@
+module CNIOWASI {
+    umbrella header "/Users/dmitriieselidze/2025_1_team.aqua/.build/checkouts/swift-nio/Sources/CNIOWASI/include/CNIOWASI.h"
+    export *
+}

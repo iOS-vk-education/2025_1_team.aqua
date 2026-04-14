@@ -8,6 +8,7 @@
 import SwiftUI
 import AVFoundation
 import Combine
+import PhotosUI
 
 struct CameraPreview: UIViewRepresentable {
     let session: AVCaptureSession
@@ -31,16 +32,54 @@ struct ScanView: View {
     @EnvironmentObject var store: ProductStore
     @StateObject private var camera = CameraService()
     @State private var selectedProduct: Product?
+    @State private var isHintVisible = true
+    @State private var selectedPhotoItem: PhotosPickerItem?
+    
 
     var body: some View {
         ZStack {
             CameraPreview(session: camera.session)
                 .ignoresSafeArea()
+                .overlay {
+                    AppScreenBackground()
+                        .opacity(0.32)
+                        .allowsHitTesting(false)
+                }
 
             VStack {
+                if isHintVisible {
+                    Button {
+                        withAnimation(.easeOut(duration: 0.2)) {
+                            isHintVisible = false
+                        }
+                    } label: {
+                        Text("Наведите камеру на состав, чтобы проанализировать продукт.")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 14)
+                    .background(.ultraThinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                    .padding(.horizontal, 16)
+                    .padding(.top, 16)
+                }
+
                 Spacer()
 
                 HStack(spacing: 12) {
+                    PhotosPicker(selection: $selectedPhotoItem, matching: .images) {
+                           Image(systemName: "photo.on.rectangle.angled")
+                               .frame(width: 70, height: 70)
+                               .font(.system(size: 28, weight: .semibold))
+                               .glassEffect()
+                               .foregroundStyle(.black)
+                       }
+                       .buttonStyle(.plain)
+                    
                     Button {
                         camera.captureAndRecognizeText()
                     } label: {
@@ -63,6 +102,7 @@ struct ScanView: View {
                             .foregroundStyle(.black)
                     }
                     .buttonStyle(.plain)
+                    
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 24)
@@ -70,7 +110,8 @@ struct ScanView: View {
         }
         .overlay(alignment: .center) {
             if camera.isLoading {
-                Color(hex: "B55BE0").opacity(0.35).ignoresSafeArea()
+                AppScreenBackground()
+                    .opacity(0.55)
                 ProgressView("Идёт анализ...")
                     .font(.headline)
                     .padding(.horizontal, 24)
@@ -80,6 +121,23 @@ struct ScanView: View {
         }
         .onAppear { camera.configureAndStart() }
         .onDisappear { camera.stop() }
+        .onChange(of: selectedPhotoItem) { _, newItem in
+            guard let newItem else { return }
+
+            Task {
+                do {
+                    guard let data = try await newItem.loadTransferable(type: Data.self),
+                          let uiImage = UIImage(data: data),
+                          let cgImage = uiImage.cgImage else {
+                        return
+                    }
+
+                    camera.recognizeTextFromGallery(cgImage)
+                } catch {
+                    print("❌ Ошибка загрузки фото из галереи:", error)
+                }
+            }
+        }
         .onChange(of: camera.product) { _, newValue in
             guard let product = newValue else { return }
             store.addProduct(product)
@@ -93,4 +151,5 @@ struct ScanView: View {
 
 #Preview {
     ScanView()
+        .environmentObject(ProductStore())
 }
