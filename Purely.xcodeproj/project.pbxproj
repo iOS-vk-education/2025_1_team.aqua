@@ -107,8 +107,11 @@
 			);
 			mainGroup = B1B67B822ECE4FA500F462DF;
 			minimizedProjectReferenceProxies = 1;
+<<<<<<< Updated upstream
 			packageReferences = (
 			);
+=======
+>>>>>>> Stashed changes
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B1B67B8C2ECE4FA500F462DF /* Products */;
 			projectDirPath = "";
@@ -150,19 +153,30 @@
 				DEVELOPMENT_TEAM = Q4DXR3DR4Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Purely/Info.plist;
+<<<<<<< Updated upstream
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
+=======
+>>>>>>> Stashed changes
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+<<<<<<< Updated upstream
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+=======
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+>>>>>>> Stashed changes
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+<<<<<<< Updated upstream
 				PRODUCT_BUNDLE_IDENTIFIER = Purely;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = Eselidze.Purely;
+>>>>>>> Stashed changes
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -184,19 +198,30 @@
 				DEVELOPMENT_TEAM = Q4DXR3DR4Y;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Purely/Info.plist;
+<<<<<<< Updated upstream
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
+=======
+>>>>>>> Stashed changes
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+<<<<<<< Updated upstream
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+=======
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+>>>>>>> Stashed changes
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+<<<<<<< Updated upstream
 				PRODUCT_BUNDLE_IDENTIFIER = Purely;
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = Eselidze.Purely;
+>>>>>>> Stashed changes
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
