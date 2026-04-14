@@ -6,7 +6,10 @@
 //
 
 import UIKit
+<<<<<<< Updated upstream
 import SwiftUI
+=======
+>>>>>>> Stashed changes
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -21,10 +24,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: scene)
         
+<<<<<<< Updated upstream
         window.rootViewController = UIHostingController(rootView: MainTabView())
         self.window = window
         window.makeKeyAndVisible()
 
+=======
+        window.rootViewController = MainTabBarController()
+        self.window = window
+        window.makeKeyAndVisible()
+>>>>>>> Stashed changes
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
