@@ -70,7 +70,7 @@ struct Ingredient: Identifiable, Hashable, Codable {
 
 final class ProductStore: ObservableObject {
     @Published var products: [Product]
-    
+
     init(products: [Product] = Product.products) {
         self.products = products
     }

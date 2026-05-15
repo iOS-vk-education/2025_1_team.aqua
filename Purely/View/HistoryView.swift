@@ -15,6 +15,24 @@ struct HistoryView: View {
         ZStack {
             AppScreenBackground()
             List {
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "sparkles")
+                            .font(.title3.weight(.semibold))
+                        Text("Purely")
+                            .font(.title3.weight(.bold))
+                    }
+                    .foregroundStyle(.white)
+
+                    Text("История проверок")
+                        .font(.title2.bold())
+                        .foregroundStyle(.white)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .listRowInsets(EdgeInsets(top: 22, leading: 22, bottom: 10, trailing: 22))
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+
                 ForEach(store.products) { product in
                     Button {
                         selectedProduct = product
@@ -22,9 +40,8 @@ struct HistoryView: View {
                         GlassButton(title: product.name, score: product.score)
                     }
                     .buttonStyle(LiquidPressStyle())
-                    .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                    .listRowInsets(EdgeInsets(top: 8, leading: 22, bottom: 8, trailing: 22))
                     .listRowSeparator(.hidden)
-//                    .listRowSeparatorTint(Color.white.opacity(0.3))
                     .listRowBackground(Color.clear)
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
@@ -41,6 +58,9 @@ struct HistoryView: View {
                 ProductDetailView(product: product)
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .tint(.white)
+        .toolbarColorScheme(.dark, for: .navigationBar)
     }
 }
 

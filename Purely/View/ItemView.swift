@@ -20,44 +20,48 @@ struct GlassButton: View {
     }
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 14) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(.headline)
                     .lineLimit(2)
                     .multilineTextAlignment(.leading)
-                    .foregroundStyle(Color(hex: "FFED86"))
+                    .foregroundStyle(.white)
                 
                 Text("Косметический продукт")
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.white.opacity(0.72))
             }
 
-            Spacer()
+            Spacer(minLength: 10)
 
             HStack(spacing: 6) {
                 Text("\(score)")
-                    .font(.headline.weight(.semibold))
-                    .padding(.horizontal, 10)
+                    .font(.title3.weight(.bold))
+                    .monospacedDigit()
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 12)
                     .padding(.vertical, 8)
-                    .background(scoreColor.opacity(0.15))
-                    .foregroundStyle(scoreColor)
+                    .background(scoreColor.opacity(0.86))
                     .clipShape(Capsule())
+                    .overlay(
+                        Capsule()
+                            .stroke(Color.white.opacity(0.28), lineWidth: 1)
+                    )
                 
                 Image(systemName: "chevron.right")
                     .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.white.opacity(0.72))
             }
         }
-        .padding(.vertical, 14)
-        .padding(.horizontal, 16)
-        .background(.ultraThinMaterial)
+        .padding(14)
+        .background(Color.white.opacity(0.16))
         .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.white.opacity(0.12), lineWidth: 1)
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                .stroke(Color.white.opacity(0.22), lineWidth: 1)
         )
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .contentShape(RoundedRectangle(cornerRadius: 20)) // чтобы тапался весь прямоугольник
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .contentShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
     }
 }
 

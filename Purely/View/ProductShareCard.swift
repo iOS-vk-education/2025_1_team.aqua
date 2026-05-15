@@ -40,9 +40,17 @@ struct ProductShareCardView: View {
                 ratingBlock
 
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("Основные компоненты")
-                        .font(.headline)
-                        .foregroundStyle(.white)
+                    HStack(alignment: .firstTextBaseline) {
+                        Text("Основные компоненты")
+                            .font(.headline)
+                            .foregroundStyle(.white)
+
+                        Spacer()
+
+                        Text("Риск")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.white.opacity(0.66))
+                    }
 
                     VStack(spacing: 8) {
                         ForEach(ingredientsToShow) { ing in
@@ -120,10 +128,11 @@ struct ProductShareCardView: View {
 
             Text("\(product.score)")
                 .font(.title2.weight(.bold))
-                .foregroundStyle(scoreColor(product.score))
+                .monospacedDigit()
+                .foregroundStyle(.white)
                 .padding(.horizontal, 18)
                 .padding(.vertical, 10)
-                .background(scoreColor(product.score).opacity(0.2))
+                .background(scoreColor(product.score).opacity(0.86))
                 .clipShape(Capsule())
                 .overlay(
                     Capsule()
@@ -156,14 +165,14 @@ struct ProductShareCardView: View {
 
                 Text(ing.riskLevel.rawValue)
                     .font(.caption2.weight(.bold))
-                    .foregroundStyle(ing.riskLevel.color)
+                    .foregroundStyle(.white)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
-                    .background(ing.riskLevel.color.opacity(0.2))
+                    .background(ing.riskLevel.color.opacity(0.86))
                     .clipShape(Capsule())
                     .overlay(
                         Capsule()
-                            .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                            .stroke(Color.white.opacity(0.24), lineWidth: 1)
                     )
             }
 

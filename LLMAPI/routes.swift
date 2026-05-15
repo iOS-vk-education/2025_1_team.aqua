@@ -82,7 +82,7 @@ func createPrompt(for text: String) -> String {
     3. Provide a short description (1-2 sentences) of how each ingredient works and its impact on skin and health.
     4. Assess the danger level of each ingredient based on toxicity and potential health risks (low, medium, high).
     5. If an ingredient is unknown or has no available information, skip it.
-
+    6. Answer should be given in RUSSIAN
     Sources:
     - Cosmetic Ingredient Review (CIR)
     - EWG's Skin Deep

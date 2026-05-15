@@ -15,56 +15,77 @@ struct ProductDetailView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                // Header карточка
-                VStack(alignment: .leading, spacing: 12) {
-                    Text(product.name)
-                        .font(.title2.bold())
-                        .multilineTextAlignment(.leading)
+            VStack(alignment: .leading, spacing: 18) {
+                HStack(spacing: 8) {
+                    Image(systemName: "sparkles")
+                        .font(.title3.weight(.semibold))
+                    Text("Purely")
+                        .font(.title3.weight(.bold))
+                }
+                .foregroundStyle(.white)
 
+                Text(product.name)
+                    .font(.title2.bold())
+                    .foregroundStyle(.white)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                VStack(alignment: .leading, spacing: 12) {
                     HStack(spacing: 12) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Общий рейтинг")
                                 .font(.subheadline)
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(.white.opacity(0.75))
 
                             Text(product.ratingSummary)
-                                .font(.headline)
+                                .font(.headline.weight(.semibold))
                                 .foregroundStyle(scoreColor(product.score))
                         }
 
-                        Spacer()
+                        Spacer(minLength: 8)
 
                         Text("\(product.score)")
-                            .font(.title3.weight(.bold))
-                            .padding(.horizontal, 16)
+                            .font(.title2.weight(.bold))
+                            .monospacedDigit()
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 18)
                             .padding(.vertical, 10)
-                            .background(scoreColor(product.score).opacity(0.15))
-                            .foregroundStyle(scoreColor(product.score))
+                            .background(scoreColor(product.score).opacity(0.86))
                             .clipShape(Capsule())
+                            .overlay(
+                                Capsule()
+                                    .stroke(Color.white.opacity(0.25), lineWidth: 1)
+                            )
                     }
                 }
-                .padding(16)
-                .background(.ultraThinMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                .detailGlassCard(cornerRadius: 18)
 
-                // Основные компоненты
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Основные компоненты")
-                        .font(.headline)
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack(alignment: .firstTextBaseline) {
+                        Text("Основные компоненты")
+                            .font(.headline)
+                            .foregroundStyle(.white)
 
-                    VStack(spacing: 10) {
+                        Spacer()
+
+                        Text("Риск")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.white.opacity(0.66))
+                    }
+
+                    VStack(spacing: 8) {
                         ForEach(product.ingredients) { ing in
                             IngredientCard(ingredient: ing)
                         }
                     }
                 }
+                .detailGlassCard(cornerRadius: 18)
 
-                // Полный состав
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
                         Text("Полный состав (INCI)")
                             .font(.headline)
+                            .foregroundStyle(.white)
 
                         Spacer()
 
@@ -84,33 +105,43 @@ struct ProductDetailView: View {
                                 Text("Копировать")
                             }
                             .font(.caption.weight(.semibold))
+                            .foregroundStyle(.white)
                             .padding(.horizontal, 10)
                             .padding(.vertical, 6)
                             .background(Color.white.opacity(0.15))
                             .clipShape(Capsule())
+                            .overlay(
+                                Capsule()
+                                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                            )
                         }
                         .buttonStyle(.plain)
                     }
 
                     Text(product.full_composition)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .padding(12)
+                        .font(.footnote)
+                        .foregroundStyle(.white.opacity(0.92))
+                        .fixedSize(horizontal: false, vertical: true)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(.ultraThinMaterial)
-                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
 
                     if didCopyComposition {
                         Text("Состав скопирован")
                             .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(.white.opacity(0.72))
                             .transition(.opacity.combined(with: .move(edge: .top)))
                     }
                 }
+                .detailGlassCard(cornerRadius: 16)
+
+                Text("purely · анализ состава косметики")
+                    .font(.caption2.weight(.medium))
+                    .foregroundStyle(.white.opacity(0.55))
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.top, 4)
 
                 Spacer(minLength: 24)
             }
-            .padding()
+            .padding(22)
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -121,6 +152,7 @@ struct ProductDetailView: View {
                     }
                 } label: {
                     Image(systemName: "square.and.arrow.up")
+                        .foregroundStyle(.white)
                 }
             }
         }
@@ -128,6 +160,8 @@ struct ProductDetailView: View {
             ShareActivityView(activityItems: [payload.image])
         }
         .scrollContentBackground(.hidden)
+        .tint(.white)
+        .toolbarColorScheme(.dark, for: .navigationBar)
         .background { AppScreenBackground() }
     }
 
@@ -145,31 +179,53 @@ private struct IngredientCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack {
+            HStack(alignment: .top, spacing: 8) {
                 Text(ingredient.name)
-                    .font(.headline)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.white)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
 
-                Spacer()
+                Spacer(minLength: 8)
 
                 Text(ingredient.riskLevel.rawValue)
-                    .font(.caption.bold())
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(.white)
                     .padding(.horizontal, 10)
-                    .padding(.vertical, 6)
-                    .background(ingredient.riskLevel.color.opacity(0.15))
-                    .foregroundStyle(ingredient.riskLevel.color)
+                    .padding(.vertical, 5)
+                    .background(ingredient.riskLevel.color.opacity(0.86))
                     .clipShape(Capsule())
+                    .overlay(
+                        Capsule()
+                            .stroke(Color.white.opacity(0.24), lineWidth: 1)
+                    )
             }
 
             Text(ingredient.role)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .font(.caption)
+                .foregroundStyle(.white.opacity(0.8))
 
             Text(ingredient.impact)
-                .font(.subheadline)
+                .font(.caption2)
+                .foregroundStyle(.white.opacity(0.72))
         }
-        .padding(12)
-        .background(.ultraThinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 18))
+        .padding(10)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.white.opacity(0.08))
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+    }
+}
+
+private extension View {
+    func detailGlassCard(cornerRadius: CGFloat) -> some View {
+        padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.white.opacity(0.16))
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .stroke(Color.white.opacity(0.22), lineWidth: 1)
+            )
     }
 }
 

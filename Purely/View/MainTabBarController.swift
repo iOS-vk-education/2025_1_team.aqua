@@ -5,6 +5,8 @@
 //  Created by Dmitrii Eselidze on 21.11.2025.
 //
 
+// 1.0
+
 import SwiftUI
 import UIKit
 
@@ -13,11 +15,14 @@ struct MainTabView: View {
     @StateObject private var store = ProductStore()
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
 
+    @State private var selectedTab = 0
+
+
     var body: some View {
         ZStack {
             AppScreenBackground()
 
-            TabView {
+            TabView(selection: $selectedTab) {
                 NavigationStack {
                     HistoryView()
                         .environmentObject(store)
@@ -29,7 +34,9 @@ struct MainTabView: View {
                     Label("История", systemImage: "clock")
                 }
 
+
                 NavigationStack {
+
                     ScanView()
                         .environmentObject(store)
                         .navigationTitle("Сканирование")
