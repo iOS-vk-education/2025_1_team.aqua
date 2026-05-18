@@ -192,6 +192,7 @@ struct ScanView: View {
                 } catch {
                     print("❌ Ошибка загрузки фото из галереи:", error)
                 }
+                selectedPhotoItem = nil
             }
         }
         .onChange(of: camera.product) { _, newValue in

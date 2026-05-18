@@ -17,7 +17,7 @@ func analyzeText(text: String, app: Application) -> EventLoopFuture<String> {
     headers.add(name: .authorization, value: "Bearer \(apiKey)")
     headers.add(name: .contentType, value: "application/json")
     
-    let body = BotHubRequest(model: "groq/llama-3.3-70b-versatile", input: text, max_output_tokens: 1500)
+    let body = BotHubRequest(model: "gemini-2.5-flash", input: text, max_output_tokens: 1500)
     
     let client = app.client
     return client.post(URI(string: url), headers: headers, content: body)
