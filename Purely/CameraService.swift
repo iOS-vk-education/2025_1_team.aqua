@@ -76,7 +76,7 @@ final class CameraService: NSObject, ObservableObject {
 
     private func configureSession() {
         session.beginConfiguration()
-        session.sessionPreset = .photo
+        session.sessionPreset = .high
         defer { session.commitConfiguration() }
 
         guard
@@ -95,7 +95,7 @@ final class CameraService: NSObject, ObservableObject {
             return
         }
         session.addOutput(photoOutput)
-        photoOutput.isHighResolutionCaptureEnabled = true
+        photoOutput.isHighResolutionCaptureEnabled = false
     }
 
     func captureAndRecognizeText() {
