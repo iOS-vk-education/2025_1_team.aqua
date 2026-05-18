@@ -11,13 +11,15 @@ struct BotHubRequest: Content {
 // Функция для отправки запроса и ответа
 func analyzeText(text: String, app: Application) -> EventLoopFuture<String> {
     let apiKey = Environment.get("BOTHUB_API_KEY") ?? "api-key"
+    let model = Environment.get("LLM_MODEL") ?? "gemini-2.5-flash"
+    let maxTokens = Int(Environment.get("MAX_TOKENS") ?? "1500") ?? 1500
     let url = "https://bothub.chat/api/v2/openai/v1/responses"
-    
+
     var headers = HTTPHeaders()
     headers.add(name: .authorization, value: "Bearer \(apiKey)")
     headers.add(name: .contentType, value: "application/json")
-    
-    let body = BotHubRequest(model: "gemini-2.5-flash", input: text, max_output_tokens: 1500)
+
+    let body = BotHubRequest(model: model, input: text, max_output_tokens: maxTokens)
     
     let client = app.client
     return client.post(URI(string: url), headers: headers, content: body)
