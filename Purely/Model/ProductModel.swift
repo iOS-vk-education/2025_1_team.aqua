@@ -13,26 +13,29 @@ struct Product: Identifiable, Codable, Hashable {
     let id = UUID()
     let name: String
     let score: Int
+    let description: String
     let ingredients: [Ingredient]
     let full_composition: String
-    
+
     enum CodingKeys: String, CodingKey {
         case name = "product_name"
         case score
+        case description
         case ingredients
         case full_composition
     }
-    
-    init(name: String, score: Int, ingredients: [Ingredient], full_composition: String) {
+
+    init(name: String, score: Int, description: String = "", ingredients: [Ingredient], full_composition: String) {
         self.name = name
         self.score = score
+        self.description = description
         self.ingredients = ingredients
         self.full_composition = full_composition
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         name = try container.decode(String.self, forKey: .name)
         if let intScore = try? container.decode(Int.self, forKey: .score) {
             score = intScore
@@ -40,7 +43,8 @@ struct Product: Identifiable, Codable, Hashable {
             let scoreString = try container.decode(String.self, forKey: .score)
             score = Int(scoreString) ?? 0
         }
-        
+
+        description = (try? container.decode(String.self, forKey: .description)) ?? ""
         ingredients = try container.decode([Ingredient].self, forKey: .ingredients)
         full_composition = try container.decode(String.self, forKey: .full_composition)
     }
@@ -111,7 +115,7 @@ enum RiskLevel: String, CaseIterable, Hashable, Codable {
     var color: Color {
         switch self {
         case .low: return .green
-        case .medium: return .orange
+        case .medium: return Color(hex: "F2FF30")
         case .high: return .red
         }
     }

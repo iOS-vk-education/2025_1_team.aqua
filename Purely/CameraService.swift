@@ -155,7 +155,7 @@ extension CameraService: AVCapturePhotoCaptureDelegate {
         let parameters: [String: Any] = ["text": text]
         let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
 
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: url, timeoutInterval: 30)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
@@ -204,11 +204,18 @@ extension CameraService: AVCapturePhotoCaptureDelegate {
         DispatchQueue.main.async {
             self.isLoading = true
         }
-        recognizeText(in: cgImage)
+        sessionQueue.async { [weak self] in
+            self?.recognizeText(in: cgImage)
+        }
+    }
+
+    func resetProduct() {
+        product = nil
     }
 
     private func recognizeText(in cgImage: CGImage) {
-        let request = VNRecognizeTextRequest { req, err in
+        let request = VNRecognizeTextRequest { [weak self] req, err in
+            guard let self else { return }
             if let err = err {
                 print("❌ Vision error:", err)
                 return

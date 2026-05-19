@@ -29,9 +29,9 @@ final class PreviewView: UIView {
 }
 
 struct ScanView: View {
+    var onScanComplete: ((Product) -> Void)? = nil
     @EnvironmentObject var store: ProductStore
     @StateObject private var camera = CameraService()
-    @State private var selectedProduct: Product?
     @State private var isHintVisible = true
     @State private var selectedPhotoItem: PhotosPickerItem?
 
@@ -52,13 +52,6 @@ struct ScanView: View {
 
             VStack(spacing: 18) {
                 VStack(alignment: .leading, spacing: 10) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "sparkles")
-                            .font(.title3.weight(.semibold))
-                        Text("Purely")
-                            .font(.title3.weight(.bold))
-                    }
-                    .foregroundStyle(.white)
 
                     Text("Сканировать состав")
                         .font(.title2.bold())
@@ -197,11 +190,8 @@ struct ScanView: View {
         }
         .onChange(of: camera.product) { _, newValue in
             guard let product = newValue else { return }
-            store.addProduct(product)
-            selectedProduct = product
-        }
-        .navigationDestination(item: $selectedProduct) { product in
-            ProductDetailView(product: product)
+            camera.resetProduct()
+            onScanComplete?(product)
         }
         .navigationBarTitleDisplayMode(.inline)
         .tint(.white)

@@ -95,7 +95,7 @@ func createPrompt(for text: String) -> String {
     Text to analyze: \(text)
 
     The result must be in the following JSON format:
-    {"product_name": "Expected name of the product","ingredients": [{"name":"Ingredient name","function": "Function of the ingredient","description": "Short description of how the ingredient works and its impact","danger_level": "Danger level of the ingredient (low, medium, high)"}],"full_composition": "Comma-separated list of all ingredients in the product","score": "Product score in scale 0..100"}
+    {"product_name": "Expected name of the product","description": "Brief 2-3 sentence overview of the product: what it is, what it does, and overall impression of its safety and quality","ingredients": [{"name":"Ingredient name","function": "Function of the ingredient","description": "Short description of how the ingredient works and its impact","danger_level": "Danger level of the ingredient (low, medium, high)"}],"full_composition": "Comma-separated list of all ingredients in the product","score": "Product score in scale 0..100"}
 """
     return prompt
 }

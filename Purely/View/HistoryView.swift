@@ -9,21 +9,13 @@ import SwiftUI
 
 struct HistoryView: View {
     @EnvironmentObject var store: ProductStore
-    @State private var selectedProduct: Product?
+    @Binding var path: NavigationPath
 
     var body: some View {
         ZStack {
             AppScreenBackground()
             List {
                 VStack(alignment: .leading, spacing: 10) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "sparkles")
-                            .font(.title3.weight(.semibold))
-                        Text("Purely")
-                            .font(.title3.weight(.bold))
-                    }
-                    .foregroundStyle(.white)
-
                     Text("История проверок")
                         .font(.title2.bold())
                         .foregroundStyle(.white)
@@ -35,7 +27,7 @@ struct HistoryView: View {
 
                 ForEach(store.products) { product in
                     Button {
-                        selectedProduct = product
+                        path.append(product)
                     } label: {
                         GlassButton(title: product.name, score: product.score)
                     }
@@ -54,9 +46,6 @@ struct HistoryView: View {
             }
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
-            .navigationDestination(item: $selectedProduct) { product in
-                ProductDetailView(product: product)
-            }
         }
         .navigationBarTitleDisplayMode(.inline)
         .tint(.white)
@@ -66,7 +55,7 @@ struct HistoryView: View {
 
 #Preview {
     NavigationStack {
-        HistoryView()
+        HistoryView(path: .constant(NavigationPath()))
             .environmentObject(ProductStore())
             .navigationTitle("История")
     }

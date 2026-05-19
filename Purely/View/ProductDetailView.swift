@@ -30,6 +30,7 @@ struct ProductDetailView: View {
                     .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: false, vertical: true)
 
+                // Общий рейтинг
                 VStack(alignment: .leading, spacing: 12) {
                     HStack(spacing: 12) {
                         VStack(alignment: .leading, spacing: 4) {
@@ -60,27 +61,22 @@ struct ProductDetailView: View {
                 }
                 .detailGlassCard(cornerRadius: 18)
 
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack(alignment: .firstTextBaseline) {
-                        Text("Основные компоненты")
+                // Описание
+                if !product.description.isEmpty {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("Описание")
                             .font(.headline)
                             .foregroundStyle(.white)
 
-                        Spacer()
-
-                        Text("Риск")
-                            .font(.caption.weight(.semibold))
-                            .foregroundStyle(.white.opacity(0.66))
+                        Text(product.description)
+                            .font(.subheadline)
+                            .foregroundStyle(.white.opacity(0.88))
+                            .fixedSize(horizontal: false, vertical: true)
                     }
-
-                    VStack(spacing: 8) {
-                        ForEach(product.ingredients) { ing in
-                            IngredientCard(ingredient: ing)
-                        }
-                    }
+                    .detailGlassCard(cornerRadius: 18)
                 }
-                .detailGlassCard(cornerRadius: 18)
 
+                // Полный состав
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
                         Text("Полный состав (INCI)")
@@ -133,6 +129,28 @@ struct ProductDetailView: View {
                 }
                 .detailGlassCard(cornerRadius: 16)
 
+                // Основные компоненты
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack(alignment: .firstTextBaseline) {
+                        Text("Основные компоненты")
+                            .font(.headline)
+                            .foregroundStyle(.white)
+
+                        Spacer()
+
+                        Text("Риск")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.white.opacity(0.66))
+                    }
+
+                    VStack(spacing: 8) {
+                        ForEach(product.ingredients) { ing in
+                            IngredientCard(ingredient: ing)
+                        }
+                    }
+                }
+                .detailGlassCard(cornerRadius: 18)
+
                 Text("purely · анализ состава косметики")
                     .font(.caption2.weight(.medium))
                     .foregroundStyle(.white.opacity(0.55))
@@ -168,7 +186,7 @@ struct ProductDetailView: View {
     private func scoreColor(_ score: Int) -> Color {
         switch score {
         case 0...40:   return .red
-        case 41...75:  return .orange
+        case 41...75:  return Color(hex: "F2FF30")
         default:       return .green
         }
     }

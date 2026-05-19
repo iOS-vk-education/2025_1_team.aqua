@@ -14,7 +14,7 @@ struct GlassButton: View {
     private var scoreColor: Color {
         switch score {
         case 0...40:   return .red
-        case 41...75:  return .orange
+        case 41...75:  return Color(hex: "F2FF30")
         default:       return .green
         }
     }
