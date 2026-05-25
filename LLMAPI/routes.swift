@@ -1,7 +1,37 @@
 import Foundation
 import Vapor
 
-// Структуры для запроса
+// MARK: - Cache
+
+struct CacheEntry {
+    let ingredients: Set<String>
+    let response: String
+}
+
+var responseCache: [CacheEntry] = []
+
+func normalizeIngredients(_ text: String) -> Set<String> {
+    Set(
+        text.lowercased()
+            .components(separatedBy: CharacterSet(charactersIn: ",\n;"))
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .filter { !$0.isEmpty }
+    )
+}
+
+func jaccardSimilarity(_ a: Set<String>, _ b: Set<String>) -> Double {
+    let intersection = a.intersection(b).count
+    let union = a.union(b).count
+    return union == 0 ? 0 : Double(intersection) / Double(union)
+}
+
+func findCachedResponse(for ingredients: Set<String>) -> String? {
+    let threshold = ingredients.count < 10 ? 0.75 : 0.85
+    return responseCache.first { jaccardSimilarity($0.ingredients, ingredients) >= threshold }?.response
+}
+
+// MARK: - BotHub request
+
 struct BotHubRequest: Content {
     let model: String
     let input: String
@@ -48,16 +78,29 @@ func routes(_ app: Application) throws {
         do {
             let analyzeRequest = try req.content.decode(AnalyzeRequest.self)
             app.logger.info("Decoded request: \(analyzeRequest)")
+
+            let ingredients = normalizeIngredients(analyzeRequest.text)
+
+            if let cached = findCachedResponse(for: ingredients) {
+                app.logger.info("Cache hit for \(ingredients.count) ingredients")
+                return req.eventLoop.makeSucceededFuture(AnalyzeResponse(output_text: cached))
+            }
+
             let promptText = createPrompt(for: analyzeRequest.text)
 
             return analyzeText(text: promptText, app: app)
                 .map { raw in
+                    let outputText: String
                     if let data = raw.data(using: .utf8),
                        let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-                       let outputText = json["output_text"] as? String {
-                        return AnalyzeResponse(output_text: outputText)
+                       let text = json["output_text"] as? String {
+                        outputText = text
+                    } else {
+                        outputText = raw
                     }
-                    return AnalyzeResponse(output_text: raw)
+                    responseCache.append(CacheEntry(ingredients: ingredients, response: outputText))
+                    app.logger.info("Cache stored. Total entries: \(responseCache.count)")
+                    return AnalyzeResponse(output_text: outputText)
                 }
         } catch {
             app.logger.error("Error decoding request: \(error)")
