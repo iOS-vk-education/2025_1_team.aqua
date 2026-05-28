@@ -31,7 +31,7 @@ struct HistoryView: View {
                     } label: {
                         GlassButton(title: product.name, score: product.score)
                     }
-                    .buttonStyle(LiquidPressStyle())
+                    .buttonStyle(.plain)
                     .listRowInsets(EdgeInsets(top: 8, leading: 22, bottom: 8, trailing: 22))
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.clear)
@@ -41,6 +41,7 @@ struct HistoryView: View {
                         } label: {
                             Label("Удалить", systemImage: "trash")
                         }
+                        .tint(.red)
                     }
                 }
             }

@@ -39,6 +39,28 @@ struct ProductShareCardView: View {
 
                 ratingBlock
 
+                if !product.description.isEmpty {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("Описание")
+                            .font(.headline)
+                            .foregroundStyle(.white)
+
+                        Text(product.description)
+                            .font(.subheadline)
+                            .foregroundStyle(.white.opacity(0.88))
+                            .fixedSize(horizontal: false, vertical: true)
+                            .lineLimit(4)
+                    }
+                    .padding(14)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(glassBackground)
+                    .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .stroke(Color.white.opacity(0.22), lineWidth: 1)
+                    )
+                }
+
                 VStack(alignment: .leading, spacing: 10) {
                     HStack(alignment: .firstTextBaseline) {
                         Text("Основные компоненты")
@@ -194,7 +216,7 @@ struct ProductShareCardView: View {
     private func scoreColor(_ score: Int) -> Color {
         switch score {
         case 0...40:   return .red
-        case 41...75:  return .orange
+        case 41...75:  return Color(hex: "F2FF30")
         default:       return .green
         }
     }

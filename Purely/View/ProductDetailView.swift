@@ -12,6 +12,7 @@ struct ProductDetailView: View {
     let product: Product
     @State private var didCopyComposition = false
     @State private var shareImagePayload: ShareImagePayload?
+    @State private var isGeneratingShareImage = false
 
     var body: some View {
         ScrollView {
@@ -165,12 +166,23 @@ struct ProductDetailView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    if let image = ProductShareImageGenerator.makeImage(for: product) {
-                        shareImagePayload = ShareImagePayload(image: image)
+                    guard !isGeneratingShareImage else { return }
+                    isGeneratingShareImage = true
+                    Task { @MainActor in
+                        let image = ProductShareImageGenerator.makeImage(for: product)
+                        isGeneratingShareImage = false
+                        if let image {
+                            shareImagePayload = ShareImagePayload(image: image)
+                        }
                     }
                 } label: {
-                    Image(systemName: "square.and.arrow.up")
-                        .foregroundStyle(.white)
+                    if isGeneratingShareImage {
+                        ProgressView()
+                            .tint(.white)
+                    } else {
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundStyle(.white)
+                    }
                 }
             }
         }

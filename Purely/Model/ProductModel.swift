@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 struct Product: Identifiable, Codable, Hashable {
-    let id = UUID()
+    let id: UUID
     let name: String
     let score: Int
     let description: String
@@ -25,7 +25,8 @@ struct Product: Identifiable, Codable, Hashable {
         case full_composition
     }
 
-    init(name: String, score: Int, description: String = "", ingredients: [Ingredient], full_composition: String) {
+    init(id: UUID = UUID(), name: String, score: Int, description: String = "", ingredients: [Ingredient], full_composition: String) {
+        self.id = id
         self.name = name
         self.score = score
         self.description = description
@@ -34,6 +35,7 @@ struct Product: Identifiable, Codable, Hashable {
     }
 
     init(from decoder: Decoder) throws {
+        id = UUID()
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         name = try container.decode(String.self, forKey: .name)
@@ -51,40 +53,54 @@ struct Product: Identifiable, Codable, Hashable {
 }
 
 struct Ingredient: Identifiable, Hashable, Codable {
-    let id = UUID()
+    let id: UUID
     let name: String
     let role: String
     let impact: String
     let riskLevel: RiskLevel
-    
+
     enum CodingKeys: String, CodingKey {
         case name
         case role = "function"
         case impact = "description"
         case riskLevel = "danger_level"
     }
-    
-    init(name: String, role: String, impact: String, riskLevel: RiskLevel) {
+
+    init(id: UUID = UUID(), name: String, role: String, impact: String, riskLevel: RiskLevel) {
+        self.id = id
         self.name = name
         self.role = role
         self.impact = impact
         self.riskLevel = riskLevel
+    }
+
+    init(from decoder: Decoder) throws {
+        id = UUID()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name      = try container.decode(String.self, forKey: .name)
+        role      = try container.decode(String.self, forKey: .role)
+        impact    = try container.decode(String.self, forKey: .impact)
+        riskLevel = try container.decode(RiskLevel.self, forKey: .riskLevel)
     }
 }
 
 final class ProductStore: ObservableObject {
     @Published var products: [Product]
 
-    init(products: [Product] = Product.products) {
-        self.products = products
+    private let persistence = PersistenceController.shared
+
+    init() {
+        self.products = persistence.fetchProducts()
     }
-    
+
     func addProduct(_ product: Product) {
-        products.append(product)
+        products.insert(product, at: 0)
+        persistence.save(product: product)
     }
 
     func removeProduct(_ product: Product) {
         products.removeAll { $0.id == product.id }
+        persistence.delete(product: product)
     }
 }
 
